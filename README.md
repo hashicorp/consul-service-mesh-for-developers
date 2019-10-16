@@ -1,7 +1,7 @@
 # consul-service-mesh-for-developers
 Respository containing configuration for KubeCon 2019 workshop
 
-Abstract:
+## Abstract
 
 Service mesh is often presented as a solution for network engineering and system operability, increasing security, reliability, and observability. However, service mesh is also an incredibly useful tool for developers, and understanding how to leverage this technology can dramatically simplify your day to day workflow.
 
