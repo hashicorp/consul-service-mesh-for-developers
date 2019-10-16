@@ -21,3 +21,14 @@ Consul Service Mesh
 Loop
 Squash
 Open Census
+
+## Requirements
+Ideally it will be possible to bundle these tools into a Docker Container to account for for different environments and minimum setup for the user.
+
+* Docker
+* Kubectl
+* VSCode / Vim
+* Squash
+* Gloo Shot
+* Loop
+* Consul (CLI)
