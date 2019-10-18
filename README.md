@@ -23,6 +23,7 @@ Squash
 Open Census
 
 ## Requirements
+
 Ideally it will be possible to bundle these tools into a Docker Container to account for for different environments and minimum setup for the user.
 
 * Docker
@@ -32,3 +33,14 @@ Ideally it will be possible to bundle these tools into a Docker Container to acc
 * Gloo Shot
 * Loop
 * Consul (CLI)
+
+## Lesson Plan (total 1hr30 mins)
+* What is a Service Mesh (10 mins)
+* Setting up the environment (10 mins)
+* Deploy your first application (10 mins)
+* Investigating metrics and distributed tracing (20 mins)
+* Implementing reliability with Service Mesh (20 mins)
+  - Retries
+  - Timeouts
+  - Circuit breaking
+* Debugging services (20 mins)
