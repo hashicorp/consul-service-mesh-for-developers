@@ -9,7 +9,7 @@ import (
 
 func main() {
 	l := hclog.Default()
-	l.Info("Starting service 1.3")
+	l.Info("Starting service 1.0")
 
 	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(rw, "Hello World")

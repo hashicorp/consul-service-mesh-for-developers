@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: payment
-        image: nicholasjackson/broken-service:v5
+        image: nicholasjackson/broken-service:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
