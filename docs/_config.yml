@@ -1,0 +1,22 @@
+---
+theme: just-the-docs
+remote_theme: pmarsceill/just-the-docs@v0.2.7
+color_scheme: "dark"
+heading_anchors: true
+
+title: Service Mesh for Developers
+baseurl: ""  # the subpath of your site, e.g. /blog
+url: ""  # the base hostname & protocol for your site, e.g. http://example.com
+
+github_username: nicholasjackson
+email: jackson.nic@gmail.com
+
+# Build settings
+markdown: kramdown
+
+search_enabled: true
+# Set the search token separator for hyphenated-word search:
+search_tokenizer_separator: /[\s/]+/
+
+plugins:
+- jekyll-remote-theme
