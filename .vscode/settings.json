@@ -2,7 +2,7 @@
   "go.formatTool": "goimports",
   "go.useLanguageServer": true,
   "squash.extraArgs": "--crisock /run/k3s/containerd/containerd.sock",
-  "squash.remotePath": "/go/src/github.com/hashicorp/consul-service-mesh-for-developer/service",
+  "squash.remotePath": "/go/src/github.com/hashicorp/consul-service-mesh-for-developer",
   //"squash.kubeConfig": "/home/user/.shipyard/yards/shipyard/kubeconfig.yml",
   "squash.verbose": true
 }

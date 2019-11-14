@@ -10,7 +10,7 @@
       "request": "attach",
       "mode": "remote",
       "port": 10001,
-      "remotePath": "/go/src/github.com/hashicorp/consul-service-mesh-for-developer/service"
+      "remotePath": "/go/src/github.com/hashicorp/consul-service-mesh-for-developer"
     }
   ]
 }

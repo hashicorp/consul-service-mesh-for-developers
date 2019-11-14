@@ -1,5 +1,5 @@
 ---
 layout: default
-title: Getting Started
+title: Diagnosing the problem
 nav_order: 2
 ---
