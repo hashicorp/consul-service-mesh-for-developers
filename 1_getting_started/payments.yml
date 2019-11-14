@@ -28,15 +28,11 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        - name: "LISTEN_ADDR"
-          value: "0.0.0.0:9090"
-        - name: "NAME"
-          value: "api-v1"
-        - name: "MESSAGE"
-          value: "Response from API v1"
+        - name: "TRACING_ZIPKIN"
+          value: "http://jaeger:9411"
 
 ---
-# Service to expose web frontend
+# Service to expose payment direct 
 
 apiVersion: v1
 kind: Service

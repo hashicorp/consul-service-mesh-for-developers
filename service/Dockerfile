@@ -4,7 +4,7 @@ COPY . /go/src/github.com/hashicorp/consul-service-mesh-for-developer/service
 
 # Build with debug flags
 WORKDIR /go/src/github.com/hashicorp/consul-service-mesh-for-developer/service
-RUN CGO_ENABLED=0 GOOS=linux go build -gcflags "-N -l" -o ./bin/service ./main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -gcflags "-N -l" -o ./bin/service ./*.go
 
 FROM alpine:latest
 

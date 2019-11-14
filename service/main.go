@@ -1,20 +1,29 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+	"os"
 
 	hclog "github.com/hashicorp/go-hclog"
 )
 
+// global logger
+var logger hclog.Logger
+
 func main() {
-	l := hclog.Default()
-	l.Info("Starting service 1.0")
+	logger = hclog.Default()
+	logger.Info("Starting service 1.0")
 
-	http.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(rw, "Hello World")
-	})
+	// create the tracing setup
+	err := createTracingClient(os.Getenv("TRACING_ZIPKIN"), "Payments", "localhost")
+	if err != nil {
+		logger.Error("Error creating tracing client", "error", err)
+	}
 
+	// wire up the http handler
+	http.HandleFunc("/", handler)
+
+	// start the server
 	http.ListenAndServe(":8080", nil)
 }
 
