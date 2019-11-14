@@ -33,3 +33,5 @@ spec:
           value: "api-v1"
         - name: "MESSAGE"
           value: "Response from API v1"
+        - name: "TRACING_ZIPKIN"
+          value: "http://jaeger:9411"

@@ -34,5 +34,21 @@ spec:
           value: "web"
         - name: "MESSAGE"
           value: "Hello World"
-        - name: "HTTP_CLIENT_KEEP_ALIVES"
-          value: "false"
+        - name: "TRACING_ZIPKIN"
+          value: "http://jaeger:9411"
+
+---
+# Service to expose web frontend
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9090
+    targetPort: 9090
