@@ -36,10 +36,16 @@ Ideally it will be possible to bundle these tools into a Docker Container to acc
 ## Lesson Plan (total 1hr30 mins)
 * What is a Service Mesh (10 mins)
 * Setting up the environment (10 mins)
+  - yard up
+  - install gloo api gateway
+  - expose service through gateway 
 * Deploy your first application (10 mins)
-* Investigating metrics and distributed tracing (20 mins)
-* Implementing reliability with Service Mesh (20 mins)
-  - Retries
-  - Timeouts
-  - Circuit breaking
-* Debugging services (20 mins)
+* Find misbehaving service
+  - using metrics
+  - using tracing
+  - make changes to service to apply tracing correctly
+* Deploy changes as canary
+* Add some resilience using service mesh (retry, timeout, etc)
+* Debug service 
+  - try with squash
+  - try with loop
