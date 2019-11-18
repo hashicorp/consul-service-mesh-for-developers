@@ -39,9 +39,8 @@ Ideally it will be possible to bundle these tools into a Docker Container to acc
   - yard up
   - install gloo api gateway
   - expose service through gateway 
-* Deploy your first application (10 mins)
-* Find misbehaving service
-  - using metrics
+  - Deploy your first application (10 mins)
+* Tracing
   - using tracing
   - make changes to service to apply tracing correctly
 * Deploy changes as canary

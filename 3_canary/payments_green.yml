@@ -1,0 +1,32 @@
+---
+# API service version 2
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-deployment-green
+  labels:
+    app: payment-green
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-green
+  template:
+    metadata:
+      labels:
+        app: payment-green
+      annotations:
+        "consul.hashicorp.com/connect-inject": "true"
+        "consul.hashicorp.com/service-meta-version": "2"
+        "consul.hashicorp.com/service-tags": "v2"
+    spec:
+      containers:
+      - name: payment
+        image: nicholasjackson/broken-service:v3.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: "TRACING_ZIPKIN"
+          value: "http://jaeger:9411"

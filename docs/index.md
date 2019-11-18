@@ -182,6 +182,9 @@ Fake Service is not that fake though, it also emits metrics and tracing data whi
 
 ![](images/getting_started/jaeger.png)
 
+
+# ADD GLOO to this section
+
 ## Summary
 
 In this section you have learned how to set up a simple application in a development environment. In the next section we will start to investigate the capabilities of the Service Mesh and what they means for us developers.
