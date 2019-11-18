@@ -15,7 +15,7 @@ func main() {
 	logger.Info("Starting service 1.0")
 
 	// create the tracing setup
-	err := createTracingClient(os.Getenv("TRACING_ZIPKIN"), "Payments", "localhost")
+	err := createTracingClient(os.Getenv("TRACING_ZIPKIN"), "payment", "localhost")
 	if err != nil {
 		logger.Error("Error creating tracing client", "error", err)
 	}
