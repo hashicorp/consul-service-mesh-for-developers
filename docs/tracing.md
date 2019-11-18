@@ -12,6 +12,12 @@ nav_order: 2
 * Deploy Payments
 
 ```go
+import (
+	"github.com/opentracing/opentracing-go"
+	"github.com/opentracing/opentracing-go/ext"
+  "github.com/opentracing/opentracing-go/log"
+)
+
 // attempt to create a span using a parent span defined in http headers
 	wireContext, err := opentracing.GlobalTracer().Extract(
 		opentracing.HTTPHeaders,

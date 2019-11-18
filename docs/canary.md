@@ -10,6 +10,8 @@ nav_order: 3
 * Deploy with Canary, see failures in tracing
 
 ```go
+import sleepy "github.com/nicholasjackson/sleepy-client"
+
 // create the upstream span
 	upstreamSpan := serverSpan.Tracer().StartSpan("call_upstream",
 		opentracing.ChildOf(serverSpan.Context()),
