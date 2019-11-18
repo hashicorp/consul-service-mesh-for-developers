@@ -38,3 +38,5 @@ spec:
           value: "http://jaeger:9411"
         - name: "UPSTREAM_URIS"
           value: "http://localhost:9091"
+        - name: "HTTP_CLIENT_REQUEST_TIMEOUT"
+          value: "15s"
