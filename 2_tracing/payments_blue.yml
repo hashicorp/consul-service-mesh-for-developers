@@ -1,5 +1,5 @@
 ---
-# API service version 2
+# API service version 1
 
 apiVersion: apps/v1
 kind: Deployment
@@ -18,8 +18,9 @@ spec:
         app: payment-blue
       annotations:
         "consul.hashicorp.com/connect-inject": "true"
-        "consul.hashicorp.com/service-meta-version": "2"
-        "consul.hashicorp.com/service-tags": "v2"
+        "consul.hashicorp.com/service-meta-version": "1"
+        "consul.hashicorp.com/service-tags": "v1"
+        "consul.hashicorp.com/connect-service-upstreams": "currency:9091"
     spec:
       containers:
       - name: payment
@@ -30,3 +31,5 @@ spec:
         env:
         - name: "TRACING_ZIPKIN"
           value: "http://jaeger:9411"
+        - name: "CURRENCY_ADDR"
+          value: "http://localhost:9091"

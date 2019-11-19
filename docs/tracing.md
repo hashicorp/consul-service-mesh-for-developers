@@ -105,9 +105,14 @@ Modify the `StartSpan` block to add the additional option `ext.RPCServerOption`,
 	defer serverSpan.Finish()
 ```
 
-In the same way that the parent span is not automatically inferred from the headers the span id and other headers are not automatically added to the outbound request. We can add this information again using the OpenTracing API. First we are creating a new `clientSpan` using the context of the parent spans context.  We then 
+In the same way that the parent span is not automatically inferred from the headers the span id and other headers are not automatically added to the outbound request. We can add this information again using the OpenTracing API. First we are creating a new `clientSpan` using the context of the parent spans context.  We then are just adding some logging for the upstream type. The `SetKindRPCClient`, `HTTPUrl`, and `HTTPMethod` methods are convenience methods which set a default tag for us.
+
+Where things get interesting is the `Inject` method call. What we are doing in this method call is injecting the headers for the Zipkin span as HTTP headers in our request. The nice thing about `OpenTracing` is that this workflow remains the same, not matter which tracing system you are using.
+
+Add the following code to `line 29` in `handler.go`:
 
 ```go
+
 clientSpan := opentracing.StartSpan(
 	"call_upstream",
 	opentracing.ChildOf(serverSpan.Context()),
@@ -116,13 +121,112 @@ clientSpan := opentracing.StartSpan(
 clientSpan.LogFields(log.String("upstream.type", "http"))
 
 ext.SpanKindRPCClient.Set(clientSpan)
-ext.HTTPUrl.Set(clientSpan, upstreamRequest.URL.String())
-ext.HTTPMethod.Set(clientSpan, upstreamRequest.Method)
+ext.HTTPUrl.Set(clientSpan, req.URL.String())
+ext.HTTPMethod.Set(clientSpan, req.Method)
 
 // Transmit the span's TraceContext as HTTP headers on our
 // outbound request.
 opentracing.GlobalTracer().Inject(
 	clientSpan.Context(),
 	opentracing.HTTPHeaders,
-	opentracing.HTTPHeadersCarrier(upstreamRequest.Header))
+	opentracing.HTTPHeadersCarrier(req.Header))
 ```
+
+You will also need to add the following import to the imports declaration at the top of `handler.go`:
+
+```go
+"github.com/opentracing/opentracing-go/ext"
+```
+
+You can now re-build the application, the build will complete 100% in Docker using a multistage build, if you go to your terminal in the `payments-service` folder and execute the following command to build a new version and tag it as `v2.0.0`.
+
+```shell
+docker build -t nicholasjackson/broken-service:v2.0.0 .
+```
+
+```shell
+Sending build context to Docker daemon  8.032MB
+Step 1/10 : FROM golang:alpine
+ ---> 3024b4e742b0
+Step 2/10 : COPY . /go/src/github.com/hashicorp/consul-service-mesh-for-developer/payment-service
+ ---> 3ecd14dc6eef
+Step 3/10 : WORKDIR /go/src/github.com/hashicorp/consul-service-mesh-for-developer/payment-service
+ ---> Running in 10649f33c839
+
+#...
+
+Removing intermediate container 524e1417ed99
+ ---> 1e5194aff731
+Successfully built 1e5194aff731
+Successfully tagged nicholasjackson/broken-service:v2.0.0
+```
+
+You can now deploy the new version of the service. To avoid having to push the Docker image to a remote repository we can use the `shipyard push` command to push the image to Kubernetes image cache. Run the following command in your terminal.
+
+```shell
+➜ yard push --image nicholasjackson/broken-service:v2.0.0
+## Pushing image nicholasjackson/broken-service:v2.0.0 to cluster shipyard
+```
+
+Now let's deploy the new version to our Kubernetes cluster, the file `payments_blue.yml` in the `2_tracing` folder already has been updated with the reference to the new image which you have just built.
+
+```yaml
+containers:
+- name: payment
+  image: nicholasjackson/broken-service:v1.0.0
+  imagePullPolicy: IfNotPresent
+  ports:
+  - containerPort: 8080
+  env:
+  - name: "TRACING_ZIPKIN"
+    value: "http://jaeger:9411"
+  - name: "CURRENCY_ADDR"
+    value: "http://localhost:9091"
+```
+
+Deploy the updated application using `kubectl`:
+
+```shell
+➜ kubectl apply -f ./2_tracing/payments_blue.yml
+deployment.apps/payment-deployment-blue configured
+```
+
+Again let's curl the service to capture some traces.
+
+```shell
+➜ curl localhost:9090                                   
+{
+  "name": "web",
+  "uri": "/",
+  "type": "HTTP",
+  "start_time": "2019-11-19T09:02:51.138696",
+  "end_time": "2019-11-19T09:02:51.194127",
+  "duration": "55.4355ms",
+  "body": "Hello World",
+  "upstream_calls": [
+    {
+      "name": "api-v1",
+      "uri": "http://localhost:9091",
+      "type": "HTTP",
+      "start_time": "2019-11-19T09:02:51.146530",
+      "end_time": "2019-11-19T09:02:51.191146",
+      "duration": "44.6169ms",
+      "body": "Response from API v1",
+      "upstream_calls": [
+        {
+          "uri": "http://localhost:9091",
+          "code": 200
+        }
+      ],
+      "code": 200
+    }
+  ],
+  "code": 200
+}
+```
+
+When you again look at the traces [http://localhost:16686/search?service=web](http://localhost:16686/search?service=web) you should now see the `Payment`, and `Currency` services correctly showing as part of the trace.
+
+![](images/tracing/web_3.png)
+
+## Summary
