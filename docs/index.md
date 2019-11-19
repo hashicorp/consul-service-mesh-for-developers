@@ -293,7 +293,7 @@ To call the `web` service from your local machine, you'll need to use `yard` to 
 ### Exposing the API Gateway to your machine locally
 
 ```shell
-yard expose --service-name gloo-proxy-v2 --namespace gloo-system  --port 8081:80
+yard expose --service-name svc/gateway-proxy-v2 --namespace gloo-system  --port 8081:80
 ```
 
 Now you should be able to call the `web` service directly through the API Gateway from your local machine. Point your browser to [http://localhost:8081/ui/](http://localhost:8081/ui/) and verify:
