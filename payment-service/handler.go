@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"os"
 
-	sleepy "github.com/nicholasjackson/sleepy-client"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/log"
 )
@@ -27,9 +26,7 @@ func handler(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	// execute the request
-	//resp, err := http.DefaultClient.Do(req)
-	c := &sleepy.HTTP{}
-	resp, err := c.Do(req)
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		logger.Error("Error calling upstream", "error", err)
 		rw.WriteHeader(http.StatusInternalServerError)
