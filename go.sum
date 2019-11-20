@@ -41,6 +41,12 @@ github.com/nicholasjackson/sleepy-client v0.0.1 h1:m9t58JButo8hZEfZnAOtq8BRk04Mt
 github.com/nicholasjackson/sleepy-client v0.0.1/go.mod h1:IZGMECQd6Ul519AODxyFaFt+yIVvzZrRNo4jqLOXlmo=
 github.com/nicholasjackson/sleepy-client v0.0.2 h1:gTFd1feyAwVXId12o+Iz6nvrI9Sonv4GsdwUrBcsAEo=
 github.com/nicholasjackson/sleepy-client v0.0.2/go.mod h1:IZGMECQd6Ul519AODxyFaFt+yIVvzZrRNo4jqLOXlmo=
+github.com/nicholasjackson/sleepy-client v0.0.3 h1:MUC0DuE4IPh7BX+d83wcYPjd/vGLmZN7shCDC9LB2O8=
+github.com/nicholasjackson/sleepy-client v0.0.3/go.mod h1:IZGMECQd6Ul519AODxyFaFt+yIVvzZrRNo4jqLOXlmo=
+github.com/nicholasjackson/sleepy-client v0.0.4 h1:Ra0RepCIpBesLSbMIphm81Gr1lB7k9dqMwQd6N9EFW0=
+github.com/nicholasjackson/sleepy-client v0.0.4/go.mod h1:IZGMECQd6Ul519AODxyFaFt+yIVvzZrRNo4jqLOXlmo=
+github.com/nicholasjackson/sleepy-client v0.0.5 h1:hnE2Itlj0OeOo7tWANr8LchFAmuyZMelV/d4/rq7QFo=
+github.com/nicholasjackson/sleepy-client v0.0.5/go.mod h1:IZGMECQd6Ul519AODxyFaFt+yIVvzZrRNo4jqLOXlmo=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/ginkgo v1.7.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/gomega v1.4.3/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=

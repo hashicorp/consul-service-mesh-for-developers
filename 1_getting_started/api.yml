@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: nicholasjackson/fake-service:v0.7.3
+        image: nicholasjackson/fake-service:v0.7.8
         ports:
         - containerPort: 9090
         env:
@@ -39,4 +39,4 @@ spec:
         - name: "UPSTREAM_URIS"
           value: "http://localhost:9091"
         - name: "HTTP_CLIENT_REQUEST_TIMEOUT"
-          value: "15s"
+          value: "5s"

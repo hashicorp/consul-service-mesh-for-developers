@@ -5,7 +5,7 @@ COPY . /go/src/github.com/hashicorp/consul-service-mesh-for-developer/payment-se
 # Build with debug flags
 WORKDIR /go/src/github.com/hashicorp/consul-service-mesh-for-developer/payment-service
 RUN go mod init
-RUN CGO_ENABLED=0 GOOS=linux go build -gcflags "-N -l" -o ./bin/payment-service ./*.go
+RUN CGO_ENABLED=0 GOOS=linux go build -tags prod -gcflags "-N -l" -o ./bin/payment-service ./*.go
 
 FROM alpine:latest
 

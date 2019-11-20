@@ -4,13 +4,6 @@ title: Canary Deployments
 nav_order: 3
 ---
 
-* Explain previous deployment was risky as there could be a bug
-* Talk about Canary deployments
-* Update service to add new feature
-* Deploy with Canary, see failures in tracing
-
-**Make sleepy service behave normally on localhost**
-
 ```go
 import sleepy "github.com/nicholasjackson/sleepy-client"
 
@@ -34,32 +27,27 @@ In this section we are going to look at how can add greater assurance round our 
 The architecture team has decided that they would like all the applications developers to use a custom package the platform team has written which wraps Go's HTTTP client. Your first task is to replace the call to `http.DefaultClient().Do()` with the custom `sleepy-client`. The custom client has the same signature as the Go package so you can directly replace line `xx` with the sleepy client.
 
 ```go
-  resp, err := sleepy.Do(req)
+	c := &sleepy.HTTP{}
+	resp, err := c.Do(req)
 ```
 
 You also need to import the custom package by adding it to the import statement
 
 ```
-import sleepy "github.com/nicholasjackson/sleepy-client"
+sleepy "github.com/nicholasjackson/sleepy-client"
 ```
 
 Once you have everything up and running you can test the code before packaging it in the docker container.
 
 ```shell
-go run *.go
-Something logs
-```
-
-We can now test the service by curling the api endpoint at `http://localhost:8080`
-
-```shell
-curl localhost:8080
+➜ go test ./...
+ok      example.com/broken/payment-service      0.013s
 ```
 
 Everything should be functioning as expected you can now build the new version of the application as you did in the previous exercise. This time we are going to use the `v3.0.0` version.
 
 ```
-docker build -t nicholasjackson/broken-service:v3.0.0
+docker build -t nicholasjackson/broken-service:v3.0.0 .
 ```
 
 You can then push this to your kubernetes cluster
@@ -162,7 +150,41 @@ consul config write 3_canary/payments_splitter.hcl
 You can now test your application, you might need to make a few requests to hit the green version of your service but over time this will average out as 50% of all requests.
 
 ```
-curl localhost:9090
+➜ curl localhost:9090
+{
+  "name": "web",
+  "uri": "/",
+  "type": "HTTP",
+  "ip_addresses": [
+    "10.42.0.17"
+  ],
+  "start_time": "2019-11-20T14:54:27.430419",
+  "end_time": "2019-11-20T14:54:32.439444",
+  "duration": "5.009025002s",
+  "upstream_calls": [
+    {
+      "name": "api-v1",
+      "uri": "http://localhost:9091",
+      "type": "HTTP",
+      "ip_addresses": [
+        "10.42.0.19"
+      ],
+      "start_time": "2019-11-20T14:54:27.436368",
+      "end_time": "2019-11-20T14:54:32.438209",
+      "duration": "5.00184028s",
+      "upstream_calls": [
+        {
+          "uri": "http://localhost:9091",
+          "code": -1,
+          "error": "Error communicating with upstream service: Get http://localhost:9091/: net/http: request canceled (Client.Timeout exceeded while awaiting headers)"
+        }
+      ],
+      "code": 500,
+      "error": "Error processing upstream request: http://localhost:9091/"
+    }
+  ],
+  "code": 500
+}
 ```
 
 Have you noticed that there seems to be a little bug in the new version of the service you have just deployed?
