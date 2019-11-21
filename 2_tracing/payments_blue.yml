@@ -18,8 +18,8 @@ spec:
         app: payment-blue
       annotations:
         "consul.hashicorp.com/connect-inject": "true"
-        "consul.hashicorp.com/service-meta-version": "1"
-        "consul.hashicorp.com/service-tags": "v1"
+        "consul.hashicorp.com/service-meta-version": "2"
+        "consul.hashicorp.com/service-tags": "v2"
         "consul.hashicorp.com/connect-service-upstreams": "currency:9091"
     spec:
       containers:

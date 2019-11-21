@@ -7,7 +7,7 @@ default_subset = "blue"
 
 subsets = {
   blue = {
-    filter = "Service.Meta.version == 1"
+    filter = "Service.Meta.version == 2"
   }
   green = {
     filter = "Service.Meta.version == 3"
