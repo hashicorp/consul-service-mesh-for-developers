@@ -8,7 +8,8 @@ nav_order: 2
 
 The application you deployed in the previous step has been configured to use the [Zipkin](https://zipkin.io/) tracing protocol. Let's curl the Web endpoint to generate some traces.
 
-> Remember; if you are using the Shipyard Visual studio code environment or Instruqt use `dockerhost` instead of `localhost`!
+> Remember; if you are using the Shipyard Visual studio code environment or Instruqt use `dockerhost` instead of `localhost`! 
+> On Instruqt, the UIs referenced in this section are also conveniently open for you in the Instruqt UI
 
 ```shell
 ➜ curl localhost:9090
@@ -106,7 +107,7 @@ You will also need to import the `ext` package, add the following to your handle
 "github.com/opentracing/opentracing-go/ext"
 ```
 
-In the same way that the parent span is not automatically inferred from the headers the span id and other headers are not automatically added to the outbound request. We can add this information again using the OpenTracing API. First we are creating a new `clientSpan` using the context of the parent spans context.  We then are just adding some logging for the upstream type. The `SetKindRPCClient`, `HTTPUrl`, and `HTTPMethod` methods are convenience methods which set a default tag for us.
+In the same way that the parent span is not automatically inferred from the headers, the span id and other headers are not automatically added to the outbound request. We can add this information again using the OpenTracing API. First we are creating a new `clientSpan` using the context of the parent span`s context.  We then add some logging for the upstream type. The `SetKindRPCClient`, `HTTPUrl`, and `HTTPMethod` methods are convenience methods which set default tag for us.
 
 Where things get interesting is the `Inject` method call. What we are doing in this method call is injecting the headers for the Zipkin span as HTTP headers in our request. The nice thing about `OpenTracing` is that this workflow remains the same, not matter which tracing system you are using.
 
@@ -174,7 +175,7 @@ Now let's deploy the new version to our Kubernetes cluster, the file `payments_b
 ```yaml
 containers:
 - name: payment
-  image: nicholasjackson/broken-service:v1.0.0
+  image: nicholasjackson/broken-service:v2.0.0
   imagePullPolicy: IfNotPresent
   ports:
   - containerPort: 8080
@@ -231,3 +232,5 @@ When you again look at the traces [http://localhost:16686/search?service=web](ht
 ![](images/tracing/web_3.png)
 
 ## Summary
+
+In this section we have seen that in order to create meaninful traces, there is a dependency on you to add hooks into your applciation code to tie all the spans together.  One thing we did not do in this section is safely deploy our application. We will see how you do that next.
