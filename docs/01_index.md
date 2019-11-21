@@ -17,7 +17,7 @@ Or use the Instruqt environment
 
 [https://instruqt.com/hashicorp/tracks/service-mesh-for-developer-workflow](https://instruqt.com/hashicorp/tracks/service-mesh-for-developer-workflow){:target="_blank"}
 
-> If using Instruqt you can skip straight to [Running the Demo Application](https://kubecon.demo.gs/01_index.html#running-the-demo-application).
+**If using Instruqt you can skip straight to [Running the Demo Application](https://kubecon.demo.gs/01_index.html#running-the-demo-application).**
 
 ## Clone the example repo 
 
