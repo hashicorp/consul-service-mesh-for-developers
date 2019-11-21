@@ -17,7 +17,7 @@ Or use the Instruqt environment
 
 [https://instruqt.com/hashicorp/tracks/service-mesh-for-developer-workflow](https://instruqt.com/hashicorp/tracks/service-mesh-for-developer-workflow){:target="_blank"}
 
-If using Instruqt you can skip straight to [Running the Demo Application](https://kubecon.demo.gs/01_index.html#running-the-demo-application).
+> If using Instruqt you can skip straight to [Running the Demo Application](https://kubecon.demo.gs/01_index.html#running-the-demo-application).
 
 ## Clone the example repo 
 
@@ -144,7 +144,7 @@ deployment.apps/jaeger created
 service/jaeger-service created
 ```
 
-You can now create load balancers for the `web-service` and `jaeger-servce` so you can view them in your browser. Run the following commands in your terminal:
+You can now create load balancers for the `jaeger-servce` so you can view them in your browser. Run the following commands in your terminal:
 
 ```
 yard expose --service-name svc/jaeger --port 16686:16686
@@ -163,7 +163,7 @@ Version: 0.2.11
 b920105a8415509ff627e209fb17b9c4385989ba554db75b58cf8ca257a798bd
 ```
 
-When you now view the web service in your browser at [http://localhost:9090/ui](http://localhost:9090/ui), you will see the UI for `Fake Service`. Fake Service simulates complex service topologies. In this example, you have two tier system, `Web` calls an upstream service `API`. All of this traffic is flowing over the service mesh.
+In the `Web` tab will later see the UI for `Fake Service`. Fake Service simulates complex service topologies as shown below. In this example, you have two tier system, `Web` calls an upstream service `API`. All of this traffic is flowing over the service mesh.
 
 ![](images/getting_started/web.png)
 
