@@ -107,7 +107,7 @@ c294f9f3d42c17ff9135ec3bd17e8951a4c5086290b51bbfe6e418e3dfca14ed
 
 ## Running the demo application
 
-Now that Kubernetes and Consul are running you can install the example application.
+Now that Kubernetes and Consul are running, you can install the example application.
 
 Open a new terminal in the IDE ``Ctrl-Shift-` ``
 
@@ -163,23 +163,6 @@ Version: 0.2.11
 b920105a8415509ff627e209fb17b9c4385989ba554db75b58cf8ca257a798bd
 ```
 
-```
-yard expose --service-name svc/web --port 9090:9090
-
-     _______. __    __   __  .______   ____    ____  ___      .______       _______  
-    /       ||  |  |  | |  | |   _  \  \   \  /   / /   \     |   _  \     |       \ 
-   |   (----`|  |__|  | |  | |  |_)  |  \   \/   / /  ^  \    |  |_)  |    |  .--.  |
-    \   \    |   __   | |  | |   ___/    \_    _/ /  /_\  \   |      /     |  |  |  |
-.----)   |   |  |  |  | |  | |  |          |  |  /  _____  \  |  |\  \----.|  .--.  |
-|_______/    |__|  |__| |__| | _|          |__| /__/     \__\ | _| `._____||_______/ 
-
-
-Version: 0.2.11
-
-## Expose service: svc/web ports: 9090:9090 using network null
-6c9582667d2c90beec516ce89339e0e355816ec36b014fd4a736c6b256961a91
-```
-
 When you now view the web service in your browser at [http://localhost:9090/ui](http://localhost:9090/ui), you will see the UI for `Fake Service`. Fake Service simulates complex service topologies. In this example, you have two tier system, `Web` calls an upstream service `API`. All of this traffic is flowing over the service mesh.
 
 ![](images/getting_started/web.png)
@@ -220,7 +203,7 @@ gateway-proxy-v2-7bc7fcd6bb-swfw2   1/1     Running     0          4m39s
 gateway-v2-b79ff6f74-4xhb7          1/1     Running     0          4m39s
 ```
 
-Gloo routes to an abstraction called an `upstream` which can be a Kubernetes service, or a service defined in Consul, or even a cloud function like an AWS Lamnbda. Gloo has a function discovery component (cleverly called `discovery`) in the control plane that will automatically discover these services or functions. Let's list the `upstreams` Gloo discovered and verify that our `web` service is there:
+Gloo routes to an abstraction called an `upstream` which can be a Kubernetes service, or a service defined in Consul, or even a cloud function like an AWS Lambda. Gloo has a function discovery component (cleverly called `discovery`) in the control plane that will automatically discover these services or functions. Let's list the `upstreams` Gloo discovered and verify that our `web` service is there.
 
 ### Check for the web upstream
 
@@ -230,7 +213,7 @@ $ glooctl get upstream | grep web
 | default-web-9090         | Kubernetes | Accepted | svc name:      web 
 ```
 
-Gloo exposes APIs and services through the proxy using an API called the `VirtualService` resource. Let's create a `default` `VirtualService` and add a route to Gloo's routing table which takes traffic from the edge of the cluster and routes to the `web` service:
+Gloo exposes APIs and services through the proxy using an API called the `VirtualService` resource. Let's create a `default` `VirtualService` and add a route to Gloo's routing table which takes traffic from the edge of the cluster and routes to the `web` service.
 
 ### Create a default VirtualService
 ```shell
@@ -299,10 +282,10 @@ To call the `web` service from your local machine, you'll need to use `yard` to 
 ### Exposing the API Gateway to your machine locally
 
 ```shell
-yard expose --service-name svc/gateway-proxy-v2 --namespace gloo-system  --port 8081:80
+yard expose --service-name svc/gateway-proxy-v2 --namespace gloo-system  --port 9090:80
 ```
 
-Now you should be able to call the `web` service directly through the API Gateway from your local machine. Point your browser to [http://localhost:8081/ui/](http://localhost:8081/ui/) and verify:
+Now you should be able to call the `web` service directly through the API Gateway from your local machine. Point your browser to [http://localhost:9090/ui/](http://localhost:9090/ui/) and verify:
 
 ![](images/getting_started/web.png)
 
