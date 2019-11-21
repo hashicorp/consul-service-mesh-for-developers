@@ -4,18 +4,6 @@ title: Canary Deployments
 nav_order: 3
 ---
 
-```go
-import sleepy "github.com/nicholasjackson/sleepy-client"
-
-	// call the upstream
-	c := &sleepy.HTTP{}
-	_, err = c.GET("http://some.servce.somewhere/")
-	if err != nil {
-		serverSpan.SetTag("error", true)
-		serverSpan.LogFields(log.Error(err))
-	}
-```
-
 # Canary Deployments
 
 In the previous example we refactored an existing service to add the required functionality for distributed tracing. One thing we did not do was make any safeguards around the deployment. We pushed the code and hoped it would work. Bugs in software are an inevitable part of the development process. They take many forms from simple mistakes to misunderstood or missing requirements. While unit, functional and manual testing help weed out and squash these bugs one thing which is difficult to identify in a non-production environment are bugs which are due to configuration or differnces between dev, testing, and production.

@@ -10,8 +10,12 @@ In this section you will learn how to set up your system ready for the workshop.
 
 ## Requirements
 
-* Docker - [https://docs.docker.com/install/](https://docs.docker.com/install/)
-* Shipyard - [https://shipyard.demo.gs](https://shipyard.demo.gs)
+* Docker - [https://docs.docker.com/install/](https://docs.docker.com/install/){:target="_blank"}
+* Shipyard - [https://shipyard.demo.gs](https://shipyard.demo.gs){:target="_blank"}
+
+Or use the Instruqt environment 
+
+[https://instruqt.com/hashicorp/tracks/service-mesh-for-developer-workflow](https://instruqt.com/hashicorp/tracks/service-mesh-for-developer-workflow){:target="_blank"}
 
 ## Clone the example repo
 
