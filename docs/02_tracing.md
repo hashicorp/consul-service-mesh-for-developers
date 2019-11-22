@@ -107,7 +107,7 @@ You will also need to import the `ext` package, add the following to your handle
 "github.com/opentracing/opentracing-go/ext"
 ```
 
-In the same way that the parent span is not automatically inferred from the headers, the span id and other headers are not automatically added to the outbound request. We can add this information again using the OpenTracing API. First we are creating a new `clientSpan` using the context of the parent span`s context.  We then add some logging for the upstream type. The `SetKindRPCClient`, `HTTPUrl`, and `HTTPMethod` methods are convenience methods which set default tag for us.
+In the same way that the parent span is not automatically inferred from the headers, the span id and other headers are not automatically added to the outbound request. We can add this information again using the OpenTracing API. First we are creating a new `clientSpan` using the context of the parent span's context.  We then add some logging for the upstream type. The `SetKindRPCClient`, `HTTPUrl`, and `HTTPMethod` methods are convenience methods which set default tag for us.
 
 Where things get interesting is the `Inject` method call. What we are doing in this method call is injecting the headers for the Zipkin span as HTTP headers in our request. The nice thing about `OpenTracing` is that this workflow remains the same, not matter which tracing system you are using.
 
