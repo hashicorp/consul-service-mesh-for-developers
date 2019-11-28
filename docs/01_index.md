@@ -163,15 +163,6 @@ Version: 0.2.11
 b920105a8415509ff627e209fb17b9c4385989ba554db75b58cf8ca257a798bd
 ```
 
-In the `Web` tab will later see the UI for `Fake Service`. Fake Service simulates complex service topologies as shown below. In this example, you have two tier system, `Web` calls an upstream service `API`. All of this traffic is flowing over the service mesh.
-
-![](images/getting_started/web.png)
-
-Fake Service is not that fake though, it also emits metrics and tracing data which is capture by `Jaeger`. We will learn more about how tracing works inside your application and in the service mesh in the next section. For now you can look at the dashboard by pointing your browser at [http://localhost:16686/search](http://localhost:16686/search)
-
-![](images/getting_started/jaeger.png)
-
-
 ## Expose services through a Kubernetes API Gateway
 
 We use an edge gateway/ingress called [Gloo which is an open-source API Gateway](https://docs.solo.io/gloo/latest/) built on [Envoy Proxy](https://docs.solo.io/gloo/latest/) to handle routing into the cluster. Gloo also enables some other features like debugging which we'll dive into later in the tutorial. To get started with Gloo, let's install the proxy and its control plane into the `gloo-system` namespace.
@@ -285,10 +276,15 @@ To call the `web` service from your local machine, you'll need to use `yard` to 
 yard expose --service-name svc/gateway-proxy-v2 --namespace gloo-system  --port 9090:80
 ```
 
-Now you should be able to call the `web` service directly through the API Gateway from your local machine. Point your browser to [http://localhost:9090/ui/](http://localhost:9090/ui/) and verify:
+Now you should be able to call the `web` service directly through the API Gateway from your local machine. Point your browser to [http://localhost:9090/ui/](http://localhost:9090/ui/) or if using Instruqt select the `Web` tab and verify:
 
 ![](images/getting_started/web.png)
 
+Fake Service simulates complex service topologies as shown below. In this example, you have two tier system, `Web` calls an upstream service `API`. All of this traffic is flowing over the service mesh.
+
+Fake Service is not that fake though, it also emits metrics and tracing data which is capture by `Jaeger`. We will learn more about how tracing works inside your application and in the service mesh in the next section. For now you can look at the dashboard by pointing your browser at [http://localhost:16686/search](http://localhost:16686/search) or if you are using Instruqt select the `Jaeger` tab.
+
+![](images/getting_started/jaeger.png)
 
 ## Summary
 
